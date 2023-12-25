@@ -1,11 +1,21 @@
-const addTask = async (req, res, next) => {
+const prisma = require('../models/prisma')
+
+exports.createTask = async (req, res, next) => {
     try {
-        // const path = './tasks.json'
-        // const task = json.stringify(req.body)
+        const { text } = req.body;
+        // console.log(reqBody)
+
+        const result = await prisma.task.create({
+            data: {
+                text: text
+            }
+        })
+
+        res.status(200).json({ result })
 
     } catch (err) {
         console.log(err)
-        // next(err)
-        
+        next(err)
+
     }
 }

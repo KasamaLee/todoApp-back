@@ -13,7 +13,7 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: false }));
 
 // #### ROUTE ####
-app.use('todo', todoRoute)
+app.use('/todo', todoRoute)
 
 // #### SERVER ####
 const PORT = process.env.PORT || 7777
