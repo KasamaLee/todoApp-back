@@ -33,14 +33,15 @@ exports.readTask = async (req, res, next) => {
 exports.updateTask = async (req, res, next) => {
     try {
         const { id } = req.params;
-        const { text } = req.body;
+        const { updatedText } = req.body;
+        console.log(updatedText)
 
         const updatedTask = await prisma.task.update({
             where: {
                 id: +id
             },
             data: {
-                text: text
+                text: updatedText
             }
         })
 
@@ -70,7 +71,18 @@ exports.deleteTask = async (req, res, next) => {
 exports.updateTaskStatus = async (req, res, next) => {
     try {
         const { id } = req.params;
-        console.log(id)
+        const { status } = req.body;
+        // console.log(status)
+
+        const updatedTask = await prisma.task.update({
+            where: {
+                id: +id
+            },
+            data: {
+                completed: status
+            }
+        })
+        res.status(200).json({ updatedTask })
     } catch (err) {
         console.log(err)
         next(err)
